@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(title       = "Bookstore/Coffee_Shop-API",
-              description = "Provides bookstore and coffee_shop database control",
+              description = "Provides bookstore and coffee_shop database api endpoints",
               version     = "0.9.2"
              )
 

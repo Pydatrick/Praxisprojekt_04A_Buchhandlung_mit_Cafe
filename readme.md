@@ -50,9 +50,9 @@ Dieses Projekt stellt eine RESTful API für einen Buchladen mit integriertem Caf
    - Umgebungsvariablen anpassen und in .env umbennenen
    - Token anpassen und in token.env umbenennen
    - Mit Docker : Im Ordner /docker/
-   - ```bash
-   docker-compose --env-file ../sql/data/secret/.env up -d
-   ´´´ 
+   -  ```bash
+      docker-compose --env-file ../sql/data/secret/.env up -d 
+      ``` 
 
 5. Anwendung starten:
    ```bash
