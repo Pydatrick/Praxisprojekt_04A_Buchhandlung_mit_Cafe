@@ -1,4 +1,4 @@
-# bookstore_api
+# Praxisprojekt_04A_Buchhandlung_mit_Cafe
 
 Ein API- und Datenbankprojekt für einen Buchladen mit Café.
 
@@ -21,21 +21,22 @@ Dieses Projekt stellt eine RESTful API für einen Buchladen mit integriertem Caf
 - `models/`: Datenbankmodelle
 - `schemas/`: Pydantic-Schemas für Datenvalidierung
 - `routers/`: API-Routen
-- `data/`: Beispieldaten
-- `sql/`: SQL-Skripte zur Datenbankinitialisierung
+- `sql/data/`: Beispieldaten
+- `sql/data/secret`: Umgebungsvariablen, Token, Zertifikate
+- `docker/`: Docker Script
+- `sql/`: Shell Script für die Datenbankinitialisierung
 
 ## Installation und Ausführung
 
 1. Repository klonen:
    ```bash
-   git clone https://github.com/Cartman4600/bookstore_api.git
-   cd bookstore_api
+   git clone https://github.com/Pydatrick/Praxisprojekt_04A_Buchhandlung_mit_Cafe.git
    ```
 
 2. Virtuelle Umgebung erstellen und aktivieren:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # Auf Windows: venv\Scripts\activate
+   python venv\Scripts\activate
    ```
 
 3. Abhängigkeiten installieren:
@@ -44,9 +45,14 @@ Dieses Projekt stellt eine RESTful API für einen Buchladen mit integriertem Caf
    ```
 
 4. Datenbank einrichten:
-   - PostgreSQL installieren und einen neuen Benutzer sowie eine neue Datenbank erstellen.
-   - SQL-Skripte im `sql/`-Verzeichnis ausführen, um die Datenbanktabellen zu erstellen.
-   - Beispieldaten einplfegen.
+
+   - Im Ordner /sql/data/secret 
+   - Umgebungsvariablen anpassen und in .env umbennenen
+   - Token anpassen und in token.env umbenennen
+   - Mit Docker : Im Ordner /docker/
+   - ```bash
+   docker-compose --env-file ../sql/data/secret/.env up -d
+   ´´´ 
 
 5. Anwendung starten:
    ```bash
@@ -54,6 +60,6 @@ Dieses Projekt stellt eine RESTful API für einen Buchladen mit integriertem Caf
    ```
 
 6. API-Dokumentation aufrufen:
-   - Swagger UI: [http://localhost:5000/docs](http://localhost:5000/docs)
-   - ReDoc: [http://localhost:5000/redoc](http://localhost:5000/redoc)
+   - Swagger UI: [http://localhost:58723/docs](http://localhost:58723/docs)
+   - ReDoc: [http://localhost:58723/redoc](http://localhost:58723/redoc)
 

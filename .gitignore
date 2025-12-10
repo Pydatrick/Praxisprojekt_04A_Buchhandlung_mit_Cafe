@@ -1,17 +1,6 @@
-# ordner
 __pycache__/
-.pytest_cache/
-tests/
-
-# ignoriere echte Dateien
 .env
 token.env
 *.pem
-
-# beispiele **nicht** ignorieren!
-!example.env
-!example_token.env
-
-# Sonstiges
 *.pdf
-plan.txt
+readme.md

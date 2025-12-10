@@ -1,0 +1,34 @@
+name: Praxisprojekt_04_Buchhandlung_mit_Cafe
+services:
+  postgres:
+    image: docker.io/library/postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_DB_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      BOOKSTORE_DB_USER: ${BOOKSTORE_DB_USER}
+      BOOKSTORE_DB_PASSWORD: ${BOOKSTORE_DB_PASSWORD}
+      BOOKSTORE_DB_NAME: ${BOOKSTORE_DB_NAME}
+      COFFEE_SHOP_DB_USER: ${COFFEE_SHOP_DB_USER}
+      COFFEE_SHOP_DB_PASSWORD: ${COFFEE_SHOP_DB_PASSWORD}
+      COFFEE_SHOP_DB_NAME: ${COFFEE_SHOP_DB_NAME}
+
+    command: >
+      postgres
+      -c log_connections=on
+      -c log_disconnections=on  
+    ports:
+      - "${POSTGRES_DB_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ../sql:/docker-entrypoint-initdb.d
+    networks:
+      - internal
+
+volumes:
+  pgdata:
+
+networks:
+  internal:
+    driver: bridge

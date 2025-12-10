@@ -45,26 +45,6 @@ CREATE TABLE logs
 	timestamp TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- sequences setzen nach den eintragen der testdaten
-SELECT setval(pg_get_serial_sequence('backstock', 'id'), (SELECT MAX(id) FROM backstock));
-SELECT setval(pg_get_serial_sequence('latte', 'id'), (SELECT MAX(id) FROM latte));
-SELECT setval(pg_get_serial_sequence('americano', 'id'), (SELECT MAX(id) FROM americano));
-SELECT setval(pg_get_serial_sequence('lemonade', 'id'), (SELECT MAX(id) FROM lemonade));
-SELECT setval(pg_get_serial_sequence('apple_spritzer', 'id'), (SELECT MAX(id) FROM apple_spritzer));
-
--- rechte für api_user:
-GRANT USAGE ON SCHEMA public TO api_user;
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO api_user;
-
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO api_user;
-
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO api_user;
-
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-GRANT USAGE, SELECT ON SEQUENCES TO api_user;
-
 -- trigger function:
 CREATE OR REPLACE
 FUNCTION log_ops_with_data() RETURNS TRIGGER AS $$
@@ -125,3 +105,37 @@ CREATE TRIGGER logs_on_apple_spritzer
 AFTER INSERT OR UPDATE OR DELETE ON apple_spritzer
 FOR EACH ROW
 EXECUTE FUNCTION log_ops_with_data();
+
+-- Load CSV data
+COPY backstock(id, name, in_stock)
+FROM '/docker-entrypoint-initdb.d/data/coffee_shop/backstock.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY latte(id, price, order_date)
+FROM '/docker-entrypoint-initdb.d/data/coffee_shop/latte.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY americano(id, price, order_date)
+FROM '/docker-entrypoint-initdb.d/data/coffee_shop/americano.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY lemonade(id, price, order_date)
+FROM '/docker-entrypoint-initdb.d/data/coffee_shop/lemonade.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY apple_spritzer(id, price, order_date)
+FROM '/docker-entrypoint-initdb.d/data/coffee_shop/apple_spritzer.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+-- sequences setzen nach den eintragen der testdaten
+SELECT setval(pg_get_serial_sequence('backstock', 'id'), (SELECT MAX(id) FROM backstock));
+SELECT setval(pg_get_serial_sequence('latte', 'id'), (SELECT MAX(id) FROM latte));
+SELECT setval(pg_get_serial_sequence('americano', 'id'), (SELECT MAX(id) FROM americano));
+SELECT setval(pg_get_serial_sequence('lemonade', 'id'), (SELECT MAX(id) FROM lemonade));
+SELECT setval(pg_get_serial_sequence('apple_spritzer', 'id'), (SELECT MAX(id) FROM apple_spritzer));

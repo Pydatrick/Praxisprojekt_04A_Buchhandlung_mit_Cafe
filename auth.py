@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent
-path_to_token = ROOT_DIR / 'data' / 'secret' / 'token.env'
+path_to_token = ROOT_DIR / 'sql' /'data' / 'secret' / 'token.env'
 
 load_dotenv(path_to_token)
 API_TOKEN = os.getenv('API_TOKEN')

@@ -9,7 +9,7 @@ CreateSchemaType = TypeVar("CreateSchemaType", bound = BaseModel)
 ReadSchemaType   = TypeVar("ReadSchemaType",   bound = BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound = BaseModel)
 
-# Create ein item oder mehrere als List
+# Create
 def create_post_handler(Model:Type[ModelType],
                         Schema:Type[CreateSchemaType],  # generische Factory Funktion, wird nicht genutzt, ist aber für die validierung wichtig
                         db_getter:Callable[[], Session]

@@ -1,11 +1,12 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(title       = "Bookstore/Coffee_Shop-API",
               description = "Provides bookstore and coffee_shop database control",
-              version     = "0.8.0"
+              version     = "0.9.2"
              )
 
 # bookstore routes
@@ -25,16 +26,19 @@ app.include_router(lemonade.router,   prefix = "/coffee_shop/lemonade",   tags =
 app.include_router(apple_spritzer.router,   prefix = "/coffee_shop/apple_spritzer",  tags = ["Apple spritzer"])
 app.include_router(coffee_shop_logs.router, prefix = "/coffee_shop/logs", tags = ["Coffee shop logs"])
 
+# Favicon
+@app.get("/favicon.ico")
+def favicon():
+    return FileResponse(ROOT_DIR / 'static' / 'favicon.ico', media_type = "image/vnd.microsoft.icon")
+
 # app starten
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app",
-                host         = "127.0.0.1",
-                port         = 5000,
+                host         = "localhost",
+                port         = 58723,
                 reload       = True,
                 # Falls keine ssl Zertifikate zur Hand auskommentieren:
-                ssl_certfile = ROOT_DIR / 'data' / 'secret' / 'cert.pem',
-                ssl_keyfile  = ROOT_DIR / 'data' / 'secret' / 'key.pem'
+                ssl_certfile = ROOT_DIR / 'sql' / 'data' / 'secret' / 'cert.pem',
+                ssl_keyfile  = ROOT_DIR / 'sql' / 'data' / 'secret' / 'key.pem'
                 )
-
-# uvicorn myapi:app --host 127.0.0.1 --port 5000 --reload

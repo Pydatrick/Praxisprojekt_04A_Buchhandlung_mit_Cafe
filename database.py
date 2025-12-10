@@ -7,9 +7,8 @@ import os
 
 # paths
 ROOT_DIR = Path(__file__).resolve().parent
-path_env = ROOT_DIR / 'data' / 'secret' / '.env'
-
-# load env
+path_env = ROOT_DIR / 'sql' / 'data' / 'secret' / '.env'
+# load env bs = bookstore, cs = coffeeshop
 load_dotenv(path_env)
 user_bs     = os.getenv('BOOKSTORE_DB_USER')
 password_bs = os.getenv('BOOKSTORE_DB_PASSWORD')
