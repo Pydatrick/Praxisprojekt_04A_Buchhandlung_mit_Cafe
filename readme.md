@@ -180,18 +180,14 @@ source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
----
-
-## Mit Docker starten
+### Mit Docker starten
 
 Im Ordner `docker` diesen Befehl ausführen:
 ``` bash
 docker-compose --env-file ../sql/data/secret/.env up -d
 ```
 
----
-
-## Anwendung starten
+### Anwendung starten
 
 ``` bash
 uvicorn main:app --reload
@@ -205,11 +201,5 @@ oder `main.py` starten.
 Nach dem Start erreichbar unter:
 
 -   Swagger UI: http://localhost:58723/docs
-
----
-
-## Lizenz
-
-Dieses Projekt dient ausschließlich zu Lern- und Demonstrationszwecken.
 
 ---
