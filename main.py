@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -27,9 +27,14 @@ app.include_router(apple_spritzer.router,   prefix = "/coffee_shop/apple_spritze
 app.include_router(coffee_shop_logs.router, prefix = "/coffee_shop/logs", tags = ["Coffee shop logs"])
 
 # Favicon
-@app.get("/favicon.ico")
+@app.get("/favicon.ico", include_in_schema = False)
 def favicon():
     return FileResponse(ROOT_DIR / 'static' / 'favicon.ico', media_type = "image/vnd.microsoft.icon")
+
+# starting page /docs
+@app.get("/", include_in_schema = False)
+def root():
+    return RedirectResponse(url = "/docs")
 
 # app starten
 if __name__ == "__main__":
@@ -38,7 +43,7 @@ if __name__ == "__main__":
                 host         = "localhost",
                 port         = 58723,
                 reload       = True,
-                # Falls keine ssl Zertifikate zur Hand auskommentieren:
+                # Falls keine ssl Zertifikate zur Hand, die zwei Zeilen auskommentieren:
                 ssl_certfile = ROOT_DIR / 'sql' / 'data' / 'secret' / 'cert.pem',
                 ssl_keyfile  = ROOT_DIR / 'sql' / 'data' / 'secret' / 'key.pem'
                 )
